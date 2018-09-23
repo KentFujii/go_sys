@@ -1,0 +1,7 @@
+version: '2'
+services:
+  go_sys:
+    build: .
+    privileged: true
+    volumes:
+      - ./:/go/src/app
