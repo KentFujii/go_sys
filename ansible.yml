@@ -1,0 +1,28 @@
+- hosts: all
+  tasks:
+    - name: Install curl
+      become: true
+      command: apt install -y curl
+    - name: Install golang binary
+      become: true
+      command: curl -o /usr/local/src/golang.tar.gz https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz
+    - name: Unzip golang binary
+      become: true
+      command: tar xf /usr/local/src/golang.tar.gz -C /usr/local/
+    - name: Export goroot
+      lineinfile:
+        path: ~/.profile
+        line: export GOROOT=/usr/local/go
+    - name: Export gopath
+      lineinfile:
+        path: ~/.profile
+        line: export PATH=$PATH:$GOROOT/bin
+    - name: Reload bash
+      command: bash -lc "source ~/.profile"
+
+# sudo curl -o /usr/local/src/golang.tar.gz https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz
+# sudo tar xf /usr/local/src/golang.tar.gz -C /usr/local/
+# vi ~/.bash_profile
+# export GOROOT=/usr/local/go
+# export PATH=$PATH:$GOROOT/bin
+# source ~/.bash_profile
