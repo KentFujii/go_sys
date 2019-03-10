@@ -1,9 +1,13 @@
 - hosts: all
   tasks:
-    - name: Install curl
+    - name: Install packages
       become: true
       apt:
-        name: curl
+        name: "{{ packages }}"
+      vars:
+        packages:
+        - curl
+        - git-core
     - name: Install golang binary
       become: true
       get_url:
@@ -22,6 +26,12 @@
     - name: Export gopath
       lineinfile:
         path: ~/.profile
-        line: export PATH=$PATH:$GOROOT/bin
+        line: export GOPATH=$HOME/go
+    - name: set path
+      lineinfile:
+        path: ~/.profile
+        line: export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
     - name: Reload bash
       command: bash -lc "source ~/.profile"
+    - name: Install delve
+      command: bash -lc "go get -u github.com/derekparker/delve/cmd/dlv"
