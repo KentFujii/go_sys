@@ -1,3 +1,20 @@
+# go_sys
+
+golang system programs
+
+## getting started
+
+下記プロビジョニングツールでVMを管理する
+
+- vagrant
+- ansible
+
+上記コマンドで環境構築をする
+
+```
+vagrant up
+```
+
 ## delve使い方
 
 delveでシステムコールを覗いたりする
@@ -16,19 +33,8 @@ restart ブレークポイントを残したままデバッグプロセスを再
 
 デバッグプロセス中の詳しい操作は `help` コマンドで見れる
 
-## getting started
-
-下記プロビジョニングツールでVMを管理する
-
-- vagrant
-- ansible
-
-上記コマンドで環境構築をする
-
-```
-vagrant up
-```
-
 ## 構成
 
+
+## memo
 
