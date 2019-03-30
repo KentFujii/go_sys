@@ -7,6 +7,9 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"strings"
+	"compress/gzip"
+	"io"
+	"os"
 )
 
 func main() {
@@ -30,6 +33,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
+		request.Header.Set("Accept-Encoding", "gzip")
 		err = request.Write(conn)
 		if err != nil {
 			panic(err)
@@ -45,6 +49,15 @@ func main() {
 			panic(err)
 		}
 		fmt.Println(string(dump))
+		if response.Header.Get("Content-Encoding") == "gzip" {
+			reader, err := gzip.NewReader(response.Body)
+			if err != nil {
+				panic(err)
+			}
+			reader.Close()
+		} else {
+			io.Copy(os.Stdout, response.Body)
+		}
 		current++
 		if current == len(sendMessages) {
 			break

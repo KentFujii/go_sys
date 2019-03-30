@@ -2,6 +2,8 @@
 
 golang system programs
 
+https://github.com/yurakawa/learn-system-programming-with-go
+
 ## getting started
 
 下記プロビジョニングツールでVMを管理する
