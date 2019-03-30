@@ -3,11 +3,15 @@ package main
 import (
 	"fmt"
 	"net"
+	"os"
+	"path/filepath"
 )
 
 func main() {
-	fmt.Println("Server is runnning at localhost:8888")
-	conn, err := net.ListenPacket("udp", "localhost:8888")
+	path := filepath.Join(os.TempDir(), "unixdomainsocket-server")
+	os.Remove(path)
+	fmt.Println("Server is running at " + path)
+	conn, err := net.ListenPacket("unixgram", path)
 	if err != nil {
 		panic(err)
 	}
@@ -19,7 +23,7 @@ func main() {
 			panic(err)
 		}
 		fmt.Printf("Received from %v: %v\n", remoteAddress, string(buffer[:length]))
-		_, err = conn.WriteTo([]byte("Hello from Server"),remoteAddress)
+		_, err = conn.WriteTo([]byte("Hello from server"), remoteAddress)
 		if err != nil {
 			panic(err)
 		}
