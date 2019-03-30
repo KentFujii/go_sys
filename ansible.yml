@@ -27,10 +27,14 @@
       lineinfile:
         path: ~/.profile
         line: export GOPATH=$HOME/go
-    - name: set path
+    - name: Set path
       lineinfile:
         path: ~/.profile
         line: export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
+    - name: Set cd to project dir
+      lineinfile:
+        path: ~/.profile
+        line: cd ~/go_sys
     - name: Reload bash
       command: bash -lc "source ~/.profile"
     - name: Install delve
