@@ -2,8 +2,6 @@
 
 golang system programs
 
-https://github.com/yurakawa/learn-system-programming-with-go
-
 ## getting started
 
 下記プロビジョニングツールでVMを管理する
@@ -40,3 +38,4 @@ restart ブレークポイントを残したままデバッグプロセスを再
 
 ## memo
 
+https://github.com/yurakawa/learn-system-programming-with-go
