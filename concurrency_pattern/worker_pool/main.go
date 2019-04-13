@@ -17,21 +17,25 @@ func calc(id, price int, interestRate float64, year int) {
 }
 
 func worker(id, price int, interestRate float64, years chan int, wg *sync.WaitGroup) {
+	// タスクがなくなってチャネルがcloseするまで
 	for year := range years {
-		calc(id, price, interestRate,year)
+		calc(id, price, interestRate, year)
 		wg.Done()
 	}
 }
 
+// 35年ローンを計算
 func main() {
 	price := 40000000
 	interestRate := 0.011
+	// タスクをチャネルに入れて、全てのgoroutineはそこからタスクを切り出す
 	years := make(chan int, 35)
 	for i := 1; i < 36; i++ {
 		years <- i
 	}
 	var wg sync.WaitGroup
 	wg.Add(35)
+	// CPUの数だけワーカーを生成
 	for i := 0; i < runtime.NumCPU(); i++ {
 		go worker(i, price, interestRate, years, &wg)
 	}

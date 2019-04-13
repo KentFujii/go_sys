@@ -7,6 +7,7 @@ import (
 
 func main() {
 	fmt.Println("start sub()")
+	// 終了を受け取るコンテキストctxと、そのコンテキストを終了させるcancel関数
 	ctx, cancel := context.WithCancel(context.Background())
 	go func() {
 		fmt.Println("sub() is finished")

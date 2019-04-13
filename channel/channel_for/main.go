@@ -22,12 +22,14 @@ func primeNumber() chan int {
 				result <- i
 			}
 		}
+		// ここ以降はチャネルに送信できないようにする
 		close(result)
 	}()
 	return result
 }
 
 func main() {
+	// チャネルを使えば値が来るたびにforループが回る、個数が未定の動的配列のようなものが扱える
 	pn := primeNumber()
 	for n := range pn {
 		fmt.Println(n)
